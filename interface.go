@@ -9,8 +9,9 @@ type HyperSchema struct {
 	Media     Media    `json:"media,omitempty"`
 }
 
-type LinkList []Link
+type LinkList []*Link
 type Link struct {
+	parent       *HyperSchema
 	Href         string         `json:"href"`
 	Rel          string         `json:"rel"`
 	Title        string         `json:"title,omitempty"`

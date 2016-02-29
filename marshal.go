@@ -61,6 +61,7 @@ func (s *HyperSchema) Extract(m map[string]interface{}) error {
 		if err := s.Links.Extract(v); err != nil {
 			return err
 		}
+		s.Links.SetParent(s)
 	}
 
 	if v, ok := m["media"]; ok {
@@ -72,7 +73,7 @@ func (s *HyperSchema) Extract(m map[string]interface{}) error {
 	return nil
 }
 
-func (l *LinkList) Extract(v interface{}) error {
+func (ll *LinkList) Extract(v interface{}) error {
 	switch v.(type) {
 	case []interface{}:
 	default:
@@ -86,9 +87,9 @@ func (l *LinkList) Extract(v interface{}) error {
 		if err := l1.Extract(e); err != nil {
 			return err
 		}
-		r[i] = l1
+		r[i] = &l1
 	}
-	*l = LinkList(r)
+	*ll = LinkList(r)
 	return nil
 }
 
