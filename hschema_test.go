@@ -10,6 +10,12 @@ import (
 
 func TestParse(t *testing.T) {
 	const src = `{
+  "definitions": {
+    "uint": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
   "links": [
     {
       "href": "/schema",
@@ -28,9 +34,13 @@ func TestParse(t *testing.T) {
 				"extra": true,
         "properties": {
           "name": { "type": "string" },
-          "age": { "type": "integer", "minimum": 0 },
+          "age": { "$ref": "#/definitions/uint" },
           "address": { "type": "string" }
         }
+      },
+      "targetSchema": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/uint" }
       }
     }
   ]
