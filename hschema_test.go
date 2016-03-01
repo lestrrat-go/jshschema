@@ -25,6 +25,7 @@ func TestParse(t *testing.T) {
       "rel": "create user",
       "schema": {
         "type": "object",
+				"extra": true,
         "properties": {
           "name": { "type": "string" },
           "age": { "type": "integer", "minimum": 0 },
@@ -50,6 +51,11 @@ func TestParse(t *testing.T) {
 	}
 
 	if !assert.Equal(t, l.Method, "POST", "l.Method matches") {
+		return
+	}
+
+	_, ok := l.Schema.Extras["extra"]
+	if !assert.True(t, ok, "Extra item 'extra' should exist") {
 		return
 	}
 }

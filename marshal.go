@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/lestrrat/go-jsschema"
+	"github.com/lestrrat/go-pdebug"
 )
 
 func extractString(s *string, m map[string]interface{}, n string, required bool) error {
@@ -31,6 +32,9 @@ func extractSchema(s **schema.Schema, m map[string]interface{}, name string) err
 		return nil
 	}
 
+	if pdebug.Enabled {
+		pdebug.Printf("Found property '%s'", name)
+	}
 	switch v.(type) {
 	case map[string]interface{}:
 		s1 := schema.New()
@@ -47,7 +51,12 @@ func extractSchema(s **schema.Schema, m map[string]interface{}, name string) err
 	return nil
 }
 
-func (s *HyperSchema) Extract(m map[string]interface{}) error {
+func (s *HyperSchema) Extract(m map[string]interface{}) (err error) {
+	if pdebug.Enabled {
+		g := pdebug.Marker("HyperSchema.Extract").BindError(&err)
+		defer g.End()
+	}
+
 	s.Schema = schema.New()
 	if err := s.Schema.Extract(m); err != nil {
 		return err
@@ -68,6 +77,10 @@ func (s *HyperSchema) Extract(m map[string]interface{}) error {
 		if err := s.Media.Extract(v); err != nil {
 			return err
 		}
+	}
+
+	for _, k := range []string{"pathStart", "links", "media"} {
+		delete(s.Schema.Extras, k)
 	}
 
 	return nil
@@ -93,7 +106,12 @@ func (ll *LinkList) Extract(v interface{}) error {
 	return nil
 }
 
-func (l *Link) Extract(v interface{}) error {
+func (l *Link) Extract(v interface{}) (err error) {
+	if pdebug.Enabled {
+		g := pdebug.Marker("Link.Extract").BindError(&err)
+		defer g.End()
+	}
+
 	switch v.(type) {
 	case map[string]interface{}:
 	default:
