@@ -20,6 +20,7 @@ type Link struct {
 	Method       string         `json:"method,omitempty"`
 	EncType      string         `json:"encType,omitempty"`
 	Schema       *schema.Schema `json:"schema,omitempty"`
+	Extras      map[string]interface{}
 }
 
 type Media struct {

@@ -151,6 +151,16 @@ func (l *Link) Extract(v interface{}) (err error) {
 	if err := extractSchema(&l.TargetSchema, m, "targetSchema"); err != nil {
 		return err
 	}
+
+	l.Extras = make(map[string]interface{})
+	for k, v := range m {
+		switch k {
+		case "href", "rel", "title", "targetSchema", "mediaType", "method", "encType", "schema":
+			continue
+		}
+		l.Extras[k] = v
+	}
+
 	return nil
 }
 
