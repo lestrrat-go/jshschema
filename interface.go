@@ -1,6 +1,6 @@
 package hschema
 
-import "github.com/lestrrat/go-jsschema"
+import "github.com/lestrrat-go/jsschema"
 
 type HyperSchema struct {
 	*schema.Schema

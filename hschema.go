@@ -5,7 +5,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/lestrrat/go-jsschema"
+	"github.com/lestrrat-go/jsschema"
 )
 
 func New() *HyperSchema {

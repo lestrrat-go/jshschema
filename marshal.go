@@ -3,8 +3,8 @@ package hschema
 import (
 	"errors"
 
-	"github.com/lestrrat/go-jsschema"
-	"github.com/lestrrat/go-pdebug"
+	"github.com/lestrrat-go/jsschema"
+	"github.com/lestrrat-go/pdebug"
 )
 
 func extractString(s *string, m map[string]interface{}, n string, required bool) error {

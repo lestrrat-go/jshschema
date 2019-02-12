@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/lestrrat/go-jshschema"
+	"github.com/lestrrat-go/jshschema"
 	"github.com/stretchr/testify/assert"
 )
 
